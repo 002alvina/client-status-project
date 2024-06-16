@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clients</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h2>Welcome, <%= user.fio %></h2>
+  <table>
+    <tr>
+      <th>Account ID</th>
+      <th>Last Name</th>
+      <th>First Name</th>
+      <th>Patronymic</th>
+      <th>Birth Date</th>
+      <th>INN</th>
+      <th>Responsible</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <% clients.forEach(client => { %>
+      <tr>
+        <td><%= client.accountId %></td>
+        <td><%= client.lastName %></td>
+        <td><%= client.firstName %></td>
+        <td><%= client.patronymic %></td>
+        <td><%= client.birthDate %></td>
+        <td><%= client.inn %></td>
+        <td><%= client.responsible %></td>
+        <td><%= client.status %></td>
+        <td>
+          <form action="/update-status" method="post">
+            <input type="hidden" name="accountId" value="<%= client.accountId %>">
+            <select name="status">
+              <option value="Не в работе" <%= client.status === 'Не в работе' ? 'selected' : '' %>>Не в работе</option>
+              <option value="В работе" <%= client.status === 'В работе' ? 'selected' : '' %>>В работе</option>
+              <option value="Отказ" <%= client.status === 'Отказ' ? 'selected' : '' %>>Отказ</option>
+              <option value="Сделка закрыта" <%= client.status === 'Сделка закрыта' ? 'selected' : '' %>>Сделка закрыта</option>
+            </select>
+            <button type="submit">Update</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
+
